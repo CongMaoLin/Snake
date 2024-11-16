@@ -33,14 +33,21 @@ namespace 贪吃蛇
             int x = random.Next(2, Game.width / 2 - 1) * 2;//出现的位置如果是奇数，吃不到，因为横向一个字符占两个位置
             int y = random.Next(1, Game.height - 2);
             Position pos= new Position(x,y);
+
+            bool samePosition = false;  
             for (int i = 0; i < snake.snakeLen; i++)
             {
                 if(pos == snake.snakeBodys[i].position)
                 {
                     SetFoodPositon(snake);
+                    samePosition = true;
+                    break;
                 }
+                 
             }
-            position = pos;
+            if (!samePosition) { position = pos; }
+           
+            //position = pos;//递归被挂起后这里会无条件执行，且递归无返回值，最后还是第一次递归的重叠位置
         }
     }
 }
